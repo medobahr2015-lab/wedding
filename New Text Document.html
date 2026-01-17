@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Mohamed & Fattma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a2c3d;
+            --accent-color: #f8f5f0;
+            --text-color: #333;
+            --white: #fff;
+            --light-gray: #f5f5f5;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Music Player Controls */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: var(--secondary-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .music-toggle {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .music-toggle:hover {
+            transform: scale(1.1);
+            background-color: #c19b2c;
+        }
+        
+        .music-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .music-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .music-status {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+        }
+        
+        /* Volume slider styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 5px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        /* Auto-play notification */
+        .music-notice {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: rgba(26, 44, 61, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 250px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Google Form Container */
+        .google-form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .google-form-container iframe {
+            width: 100%;
+            border: none;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .couple-names {
+            font-size: 4.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .couple-names span {
+            color: var(--primary-color);
+            font-weight: 400;
+            margin: 0 15px;
+        }
+        
+        .wedding-date {
+            font-size: 1.8rem;
+            letter-spacing: 8px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-weight: 300;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .invitation-text {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            color: var(--secondary-color);
+            position: relative;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .event-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .detail-card {
+            background-color: var(--accent-color);
+            padding: 50px 30px;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detail-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+        
+        .detail-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .detail-card p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            height: 320px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* RSVP Section */
+        .rsvp-section {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 100px 0;
+        }
+        
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px 0;
+        }
+        
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px 20px;
+            border-radius: 5px;
+            min-width: 110px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .countdown-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        
+        /* Itinerary */
+        .itinerary {
+            margin: 60px 0;
+        }
+        
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 5px;
+            width: 45%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .timeline-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .timeline-content .time {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0f1c28;
+            color: var(--white);
+            padding: 70px 0;
+            text-align: center;
+        }
+        
+        .footer-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 18px 45px;
+            border: none;
+            border-radius: 3px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+        }
+        
+        .btn:hover {
+            background-color: #c19b2c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .couple-names {
+                font-size: 3.5rem;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 2.8rem;
+            }
+            
+            .wedding-date {
+                font-size: 1.4rem;
+                letter-spacing: 5px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .detail-card {
+                padding: 40px 25px;
+            }
+            
+            .countdown {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                min-width: 90px;
+                padding: 20px 15px;
+            }
+            
+            .countdown-number {
+                font-size: 2.2rem;
+            }
+            
+            .google-form-container {
+                padding: 10px;
+            }
+            
+            .google-form-container iframe {
+                height: 600px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .google-form-container iframe {
+                height: 500px;
+            }
+            
+            .music-player {
+                padding: 8px 15px;
+                gap: 10px;
+            }
+            
+            .music-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle" id="musicToggle">
+            <i class="fas fa-play" id="playIcon"></i>
+        </button>
+        <div class="music-info">
+            <div class="music-title">Wedding Music</div>
+            <div class="music-status" id="musicStatus">Click to play</div>
+        </div>
+        <div class="volume-control">
+            <i class="fas fa-volume-down"></i>
+            <input type="range" min="0" max="1" step="0.1" value="0.5" class="volume-slider" id="volumeSlider">
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <h1 class="couple-names">Mohamed <span>&</span> Fattma</h1>
+        <div class="wedding-date">October 25, 2026</div>
+        <p class="invitation-text">Together with our families, we request the pleasure of your company<br>as we exchange vows and celebrate our marriage</p>
+        <a href="#rsvp" class="btn">RSVP Here</a>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h2 class="section-title">Wedding Details</h2>
+            
+            <div class="event-details">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Date & Time</h3>
+                    <p>Sunday, October 25, 2026</p>
+                    <p>Ceremony: 5:00 PM</p>
+                    <p>Reception to follow</p>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Venue</h3>
+                    <p>The Royal Palace</p>
+                    <p>456 Celebration Boulevard</p>
+                    <p>Cairo, Egypt</p>
+                    <p><a href="https://maps.google.com" target="_blank" style="color: var(--primary-color); text-decoration: none;">View on Map</a></p>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Dress Code</h3>
+                    <p>Formal Attire</p>
+                    <p>Elegant Evening Wear</p>
+                    <p>Colors: Gold, Navy, White</p>
+                </div>
+            </div>
+            
+            <!-- Itinerary -->
+            <div class="itinerary">
+                <h2 class="section-title">Wedding Itinerary</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Guest Arrival</h4>
+                            <span class="time">4:30 PM</span>
+                            <p>Welcome drinks and seating</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Ceremony</h4>
+                            <span class="time">5:00 PM - 6:00 PM</span>
+                            <p>Exchange of vows in the main hall</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Cocktail Hour</h4>
+                            <span class="time">6:15 PM - 7:15 PM</span>
+                            <p>Drinks and appetizers in the garden</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h4>Reception</h4>
+                            <span class="time">7:30 PM - 1:00 AM</span>
+                            <p>Dinner, dancing, and celebration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gallery -->
+            <h2 class="section-title">Our Memories</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Couple photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Couple engagement">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="With friends">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Travel memory">
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- RSVP Section with Google Form -->
+    <section class="rsvp-section" id="rsvp">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Kindly Respond</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-size: 1.2rem; font-weight: 300;">Please RSVP by October 10, 2026</p>
+            
+            <div class="google-form-container">
+                <!-- 
+                REPLACE THIS IFRAME WITH YOUR GOOGLE FORM EMBED CODE
+                
+                How to get your Google Form embed code:
+                1. Create your form at forms.google.com
+                2. Click "Send" button (top right)
+                3. Click the "</>" embed icon
+                4. Copy the iframe code
+                5. Replace the src URL below with your form URL
+                -->
+                <iframe src="https://forms.gle/Lmpc6uGGAaiWp8Pe8" 
+                        width="100%" 
+                        height="800" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                    Loading...
+                </iframe>
+            </div>
+            
+            <!-- Alternative: Direct link (uncomment if needed) -->
+            <!--
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="margin-bottom: 20px;">If the form doesn't load, use the button below:</p>
+                <a href="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform" 
+                   target="_blank" 
+                   class="btn">
+                    Open RSVP Form in New Tab
+                </a>
+            </div>
+            -->
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Mohamed & Fattma</h3>
+                <p>Thank you for being part of our journey. We can't wait to celebrate with you!</p>
+                
+                <p>For inquiries: +20 123 456 7890 | mohamed.fattma2026@gmail.com</p>
+                <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">© 2026 Mohamed & Fattma Wedding</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Audio Element -->
+    <audio id="weddingMusic" loop>
+        <!-- REPLACE THIS URL WITH YOUR MP3 FILE URL -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        // Music Player Functionality
+        const audio = document.getElementById('weddingMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const playIcon = document.getElementById('playIcon');
+        const musicStatus = document.getElementById('musicStatus');
+        const volumeSlider = document.getElementById('volumeSlider');
+        
+        // Set initial volume
+        audio.volume = volumeSlider.value;
+        
+        // Auto-play with user interaction
+        let userInteracted = false;
+        
+        function attemptAutoPlay() {
+            if (!userInteracted) {
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playIcon.className = 'fas fa-pause';
+                        musicStatus.textContent = 'Now playing';
+                        showMusicNotice('Music is playing automatically');
+                    }).catch(error => {
+                        playIcon.className = 'fas fa-play';
+                        musicStatus.textContent = 'Click to play';
+                        showMusicNotice('Click the play button to start music');
+                    });
+                }
+            }
+        }
+        
+        function showMusicNotice(message) {
+            const existingNotice = document.querySelector('.music-notice');
+            if (existingNotice) {
+                existingNotice.remove();
+            }
+            
+            const notice = document.createElement('div');
+            notice.className = 'music-notice';
+            notice.textContent = message;
+            document.body.appendChild(notice);
+            
+            setTimeout(() => {
+                notice.style.opacity = '0';
+                notice.style.transform = 'translateY(20px)';
+                notice.style.transition = 'opacity 0.5s, transform 0.5s';
+                setTimeout(() => notice.remove(), 500);
+            }, 5000);
+        }
+        
+        // Mark user interaction for audio
+        document.addEventListener('click', function initAudio() {
+            if (!userInteracted) {
+                userInteracted = true;
+                attemptAutoPlay();
+                document.removeEventListener('click', initAudio);
+            }
+        });
+        
+        // Toggle play/pause
+        musicToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            if (audio.paused) {
+                audio.play();
+                playIcon.className = 'fas fa-pause';
+                musicStatus.textContent = 'Now playing';
+            } else {
+                audio.pause();
+                playIcon.className = 'fas fa-play';
+                musicStatus.textContent = 'Paused';
+            }
+        });
+        
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value;
+        });
+        
+        // Update status when music ends
+        audio.addEventListener('ended', function() {
+            playIcon.className = 'fas fa-play';
+            musicStatus.textContent = 'Click to play';
+        });
+        
+        // Countdown timer for October 25, 2026
+        function updateCountdown() {
+            const weddingDate = new Date('October 25, 2026 17:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = weddingDate - now;
+            
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
